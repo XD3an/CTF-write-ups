@@ -1,1 +1,1 @@
-*picoCTF
+* picoCTF
