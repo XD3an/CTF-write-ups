@@ -1,2 +1,2 @@
-# Target
+# Targets
 * picoCTF
