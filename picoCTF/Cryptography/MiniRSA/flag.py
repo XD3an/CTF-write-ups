@@ -12,7 +12,7 @@ c = 1220012318588871886132524757898884422174534558055593713309088304910273991073
 
 
 # cipher = m^e mod N
-# because e is too small so we can brute force.
+# because e is too small, we can brute force.
 # m^e = k*N + c (k is a variable)
 # m = sqrt(k*N+c, e)
 k = 1
