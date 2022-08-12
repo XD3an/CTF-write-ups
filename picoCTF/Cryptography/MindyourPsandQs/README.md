@@ -13,7 +13,7 @@ We have a file named values that included some value(c, n, e).
 #### method 1 
 Using **factordb** to find p and q then write a python script(use **PyCryptodome**) to calculate RSA to get the flag.
 
-### method 2 
+#### method 2 
 Using **RsaCtfTool**.    
 ```bash
 python3 RsaCtfTool.py -n $N -e $e --uncipher $cipher
