@@ -1,0 +1,1 @@
+[UPX](https://linux.die.net/man/1/upx#:~:text=All%20UPX%20supported%20file%20formats,file%20you've%20just%20compressed.&text=The%20%2Dt%20command%20tests%20the,file%20can%20be%20safely%20decompressed.)

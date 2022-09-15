@@ -1,0 +1,4 @@
+crackme author : abex
+type           : cdrom check
+level          : easy
+tute author    : HaQue

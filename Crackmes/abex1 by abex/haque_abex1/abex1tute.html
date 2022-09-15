@@ -1,0 +1,205 @@
+<HTML><TITLE>
+Abex's 1st crackme tutorial by HaQue
+</TITLE>
+
+<BODY TEXT="#FFFF00" BGCOLOR="#0000FF" LINK="#FF0000" VLINK="#000099" ALINK="#FFFF00">
+<HR SIZE="5">
+<H2><CENTER>
+Tutorial for Abex's 1st Crackme
+</CENTER></H2>
+
+<H3><CENTER><i>
+By HaQue 25 March 2001
+</I></CENTER></H3>
+<HR SIZE="5">
+<BR>
+
+
+<TABLE BORDER CELLSPACING=2 WIDTH="100%" HEIGHT="22">
+<TR>
+<TD BGCOLOR="#C6E7C6">
+<CENTER>
+<FONT COLOR="#0000FF" SIZE=+2>
+<B>
+Introduction
+</B>
+</FONT>
+</CENTER>
+</TD>
+</TR>
+</TABLE>
+
+
+<TABLE WIDTH="100%" BORDER="1" ALIGN="CENTER">
+<TD BODY BGCOLOR="#D0D0D0">
+<FONT COLOR="#0000FF">
+<B>
+<BR>
+This crackme is another easy one, but different than most I have added so far.
+It is a simple CD-Rom check.  If the Crackme thinks your hard drive is a CD-Rom
+it displays a message saying "OK, I really think that your HD is a CD-ROM! :p "
+or else it says "NAH... This is not a CD-ROM drive!"<P>
+The only thing to do with this one is patch it, so what the hell are we waiting for?!<P>
+</B>
+</TD>
+</FONT>
+</TABLE>
+<BR>
+
+<TABLE BORDER CELLSPACING=2 WIDTH="100%" HEIGHT="22">
+<TR>
+<TD BGCOLOR="#C6E7C6">
+<CENTER>
+<FONT COLOR="#0000FF" SIZE=+2>
+<B>
+You will need these tools
+</B>
+</FONT>
+</CENTER>
+</TD>
+</TR>
+</TABLE>
+
+
+<TABLE WIDTH="100%" BORDER="1" ALIGN="CENTER">
+<TD BODY BGCOLOR="#D0D0D0">
+<FONT COLOR="#0000FF">
+<B>
+<BR>
+  <UL>
+    <LI>W32Dasm
+    <LI>Hiew v6.55
+    <LI>Win32.hlp for info on the <A HREF="#getdrivetype">getdrivetype</A> windows API function.
+    <LI>The <A HREF="abexcm1.exe">crackme</A>
+    </UL>
+</TD>
+</FONT>
+</B>
+</TABLE>
+<BR>
+
+<TABLE BORDER CELLSPACING=2 WIDTH="100%" HEIGHT="22">
+<TR>
+<TD BGCOLOR="#C6E7C6">
+<CENTER>
+<FONT COLOR="#0000FF" SIZE=+2>
+<B>
+The Tutorial
+</B>
+</FONT>
+</CENTER>
+</TD>
+</TR>
+</TABLE>
+
+
+<TABLE WIDTH="100%" BORDER="1" ALIGN="CENTER">
+<TD BODY BGCOLOR="#D0D0D0">
+<FONT COLOR="#0000FF">
+<B>
+<BR>
+After opening the crackme in W32Dasm, we see the windows API function <A HREF="#getdrivetype">GetDriveTypeA</A>.
+This function returns a Value depending on what type of drive it is.<BR><BR>
+So, by looking at the code in the next table, we see that if we change<BR><BR>
+:00401026 7415                 je   0040103D
+<BR><BR>To<BR><BR>
+:00401026 EB15                 jmps 0040103D<BR><BR>
+The program will always think it is a cdrom!  Just patch it in Hiew and you are done!<P>  
+</B>
+</TD>
+</FONT>
+</TABLE>
+<BR>
+
+
+<TABLE WIDTH="100%" BORDER="1" ALIGN="CENTER">
+<TD BODY BGCOLOR="#D0D0D0">
+<FONT COLOR="#0000FF">
+<B>
+<BR>
+<PRE>
+
+* Possible StringData Ref from Data Obj ->"c:\"	; Test C: to see what type it is
+:00401013 6894204000           push 00402094	; "c:\" string is at 00402094
+:00401018 E838000000           Call 00401055	; KERNEL32.GetDriveTypeA
+:0040101D 46                   inc esi		; Try weakly to confuse us
+:0040101E 48                   dec eax		; Try weakly to confuse us
+:0040101F EB00                 jmp 00401021	; Jumps for no apparent reason to next line!
+
+:00401021 46                   inc esi		; Try weakly to confuse us
+:00401022 46                   inc esi		; Try weakly to confuse us
+:00401023 48                   dec eax		; Try weakly to confuse us
+:00401024 3BC6                 cmp eax, esi	; see if it is a CDROM
+:00401026 7415                 je 0040103D	; If it's a CD drive jmp, else continue
+
+
+:00401028 6A00                 push 00000000	; Un-needed parameter for MessageBoxA
+:0040102A 6835204000           push 00402035	; "Error"
+:0040102F 683B204000           push 0040203B	; "Nah... This is not a CD-ROM Drive!"
+:00401034 6A00                 push 00000000	; Un-needed parameter for MessageBoxA
+:00401036 E826000000           Call 00401061	; USER32.MessageBoxA
+:0040103B EB13                 jmp 00401050	; jump to windows cleanup to Exit app
+
+:0040103D 6A00                 push 00000000	; Un-needed parameter for MessageBoxA
+:0040103F 685E204000           push 0040205E	; "YEAH!"
+:00401044 6864204000           push 00402064	; "Ok, I really think that your HD is a CD-ROM! :p"
+:00401049 6A00                 push 00000000	; Un-needed parameter for MessageBoxA
+:0040104B E811000000           Call 00401061	; USER32.MessageBoxA
+
+:00401050 E806000000           Call 0040105B 	; KERNEL32.ExitProcess
+
+</TD>
+</FONT>
+</B>
+</PRE>
+</TABLE>
+
+<BR>
+<TABLE BORDER CELLSPACING=2 WIDTH="100%" HEIGHT="22">
+<TR>
+<TD BGCOLOR="#C6E7C6">
+<CENTER>
+<FONT COLOR="#0000FF" SIZE=+2>
+<B>
+GetDriveType API
+</B>
+</FONT>
+</CENTER>
+</TD>
+</TR>
+</TABLE>
+
+
+
+<TABLE WIDTH="100%" BORDER="1" ALIGN="CENTER">
+<TD BODY BGCOLOR="#D0D0D0">
+<FONT COLOR="#0000FF">
+<B>
+<BR>
+<PRE>
+<A NAME=getdrivetype>GetDriveType</A>( lpRootPathName );	
+
+Parameter: lpRootPathName
+Points to a null-terminated string that specifies the root directory of the disk
+to return information about. If lpRootPathName is NULL, the function uses the root
+of the current directory. 
+
+Return Value
+The return value specifies the type of drive. It can be one of the following values: 
+
+Value	Meaning
+0	The drive type cannot be determined.
+1	The root directory does not exist.
+2	The drive can be removed from the drive.
+3	The disk cannot be removed from the drive.
+4	The drive is a remote (network) drive.
+5	The drive is a CD-ROM drive.
+6	The drive is a RAM disk.
+</PRE>
+</B>
+</TD>
+</FONT>
+</TABLE>
+
+</BODY>
+</HTML>

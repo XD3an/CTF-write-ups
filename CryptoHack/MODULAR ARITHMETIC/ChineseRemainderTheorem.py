@@ -6,7 +6,7 @@ def chinese_remainder(n, a):
         p = prod // n_i
         sum += a_i * mul_inv(p, n_i) * p
     return sum % prod
- 
+
 def mul_inv(a, b):
     b0 = b
     x0, x1 = 0, 1

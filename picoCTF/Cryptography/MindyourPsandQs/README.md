@@ -3,7 +3,7 @@
 * [factordb](http://factordb.com/index.php) : A website that have a large database of factor.
 * [PyCryptodome](https://pycryptodome.readthedocs.io/en/latest/src/util/util.html) :  is a self-contained Python package of low-level cryptographic primitives.
 * [RsaCtfTool](https://github.com/RsaCtfTool/RsaCtfTool) : RSA attack tool (mainly for ctf)
-## Solutions
+## Solution
 
 We have a file named values that included some value(c, n, e).
 * c : cipher text
