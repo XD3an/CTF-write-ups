@@ -1,10 +1,10 @@
 # Introduction
----
+
 This crackme is another easy one, but different than most I have added so far. It is a simple CD-Rom check. If the Crackme thinks your hard drive is a CD-Rom it displays a message saying "OK, I really think that your HD is a CD-ROM! :p " or else it says "NAH... This is not a CD-ROM drive!"
 The only thing to do with this one is patch it, so what the hell are we waiting for?!
 
 # Solution
----
+
 
 I using x32 dbg to dynamic analysis the program, and we can use string table to find the string "OK, I really think that your HD is a CD-ROM! :p", and we can see the string "Error,...." before this string.
 
