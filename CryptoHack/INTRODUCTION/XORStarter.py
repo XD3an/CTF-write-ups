@@ -1,3 +1,3 @@
 from pwn import *
 
-print(xor("label", 13))
+print(xor(b"label", 13))

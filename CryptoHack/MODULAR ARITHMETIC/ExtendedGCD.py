@@ -1,12 +1,14 @@
-
-# Euclidean Algorithm
-def extended_gcd(a, b):
-    if b == 0:
-        return a, 1, 0
+def exgcd(a, b):
+    # ax + by = gcd(a, b) 
+		# Bézout's identity
+    if(b == 0):
+        return 1, 0, a
     else:
-        gcd, x, y = extended_gcd(b, a%b)
-        return gcd, y, x - (a // b) * y
+        x, y, q = exgcd(b, a%b)
+        x, y = y, (x - (a // b) * y)
+        return x, y, q
 
-a, b = 11, 6
-g, x, y = extended_gcd(a, b)
-print("gcd(", a , "," , b, ") = ", g, "x = ", x, "y = ", y)
+if __name__=='__main__':
+    a, b = input().split(',')
+    x, y, gcd = exgcd(int(a), int(b))
+    print('x =', x, 'y =', y, 'gcd(', a ,',', b, ') =',  gcd)
