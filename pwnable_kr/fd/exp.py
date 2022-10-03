@@ -12,5 +12,6 @@ p = s.process(executable='./fd',argv=['fd','4660'])
 p.sendline('LETMEWIN')
 
 # receive flag
+p.recv()
 print(p.recv())
 
